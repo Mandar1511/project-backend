@@ -32,13 +32,18 @@ const jobDescriptionSchema = new mongoose.Schema({
     type: String
   },
   salary: {
-    type: String
+    type: Number
   },
   postedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    // required: true
   },
+  appliedBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    // required: true
+  }],
   createdAt: {
     type: Date,
     default: Date.now

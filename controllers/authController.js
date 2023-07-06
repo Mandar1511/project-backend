@@ -4,10 +4,27 @@ const User = require('./../models/userModel');
 
 const generateToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET,{
-        expiresIn: "90d"
+        expiresIn: "10d"
     });
 }
 
+exports.authenticate = asyncHandler(async(req,res,next)=>{
+    let token;
+    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
+        try{
+            token = req.headers.authorization.split(" ")[1];
+            const decoded_token = jwt.verify(token,process.env.JWT_SECRET);
+            console.log(decoded_token);
+            req.user = await User.findById(decoded_token.id).select("-password").populate("appliedPositions.jobs");
+            console.log(req.user);
+            next();
+        }
+        catch(err){
+            res.status(401);
+            throw new Error("Not authenticated");
+        }
+    }
+})
 
 exports.signup = asyncHandler(async(req,res)=>{
     const {firstName,lastName,role,email,password} = req.body;
@@ -44,10 +61,8 @@ exports.signup = asyncHandler(async(req,res)=>{
 
 
 exports.login = asyncHandler(async(req,res)=>{
-    console.log("hi");
         const { email, password} = req.body;
         const user = await User.findOne({email});
-        console.log(user);
         if(user && (await user.matchPassword(password))){
             res.json({
                 _id: user._id,

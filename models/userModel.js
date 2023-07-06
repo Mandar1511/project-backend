@@ -55,7 +55,18 @@ const userSchema = new mongoose.Schema({
     path: {
       type: String
     }
+  },
+  appliedPositions: [{
+    jobs: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Job',
+    }, 
+    appliedAt:{
+      type: Date,
+      default: Date.now()
+    }
   }
+  ],
 });
 
 userSchema.methods.matchPassword = async function (entered){

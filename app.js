@@ -7,7 +7,7 @@ const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const userRouter= require("./routes/userRoutes");
-
+const jobRouter = require("./routes/jobRoutes")
 const app = express();
 app.use(cors({
     origin: "http://localhost:3000"
@@ -34,5 +34,5 @@ app.use(express.json());
 
 
 app.use('/api/v1/users', userRouter);
-// app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/jobs', jobRouter);
 module.exports =app;
