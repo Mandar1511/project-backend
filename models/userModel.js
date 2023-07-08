@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profileImg: {
+    type: String,
+  },
   lastName: {
     type: String,
     required: true,
@@ -26,7 +29,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   education: {
-    institution: {
+    institute: {
       type: String,
     },
     graduationYear: {

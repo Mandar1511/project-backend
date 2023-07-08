@@ -21,7 +21,6 @@ exports.authenticate = asyncHandler(async (req, res, next) => {
       req.user = await User.findById(decoded_token.id)
         .select("-password")
         .populate("appliedPositions.jobs");
-      console.log(req.user);
       next();
     } catch (err) {
       res.status(401);

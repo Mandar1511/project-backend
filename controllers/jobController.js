@@ -4,6 +4,10 @@ const { Error } = require("mongoose");
 
 exports.createJob = asyncHandler(async (req, res) => {
   const newJob = await Job.create(req.body);
+  if (req.user === "student") {
+    res.status(400);
+    throw new Error("Only recruiters can create the job");
+  }
   if (newJob) {
     res.status(201).send(newJob);
   } else {
