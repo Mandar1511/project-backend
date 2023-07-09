@@ -52,12 +52,7 @@ const userSchema = new mongoose.Schema({
     },
   },
   resume: {
-    filename: {
-      type: String,
-    },
-    path: {
-      type: String,
-    },
+    type: String,
   },
   appliedPositions: [
     {
