@@ -11,7 +11,6 @@ const jobDescriptionSchema = new mongoose.Schema({
   },
   location: {
     type: String,
-    required: true,
   },
   description: {
     type: String,
@@ -32,8 +31,13 @@ const jobDescriptionSchema = new mongoose.Schema({
   industry: {
     type: String,
   },
+  workPlaceType: {
+    type: String,
+    required: true,
+  },
   employmentType: {
     type: String,
+    required: true,
   },
   salary: {
     type: Number,
@@ -41,13 +45,12 @@ const jobDescriptionSchema = new mongoose.Schema({
   postedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    // required: true
+    required: true,
   },
   appliedBy: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      // required: true
     },
   ],
   createdAt: {
